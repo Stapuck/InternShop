@@ -1,0 +1,129 @@
+pour le whislit
+
+user offer et wishlist
+
+model
+
+user
+public function wishlists()
+{
+return $this->hasMany(Wishlist::class);
+}
+
+controller
+
+wishlists
+$wishlists = Wishlist::where('users_id', Auth::id())->with('offers')->get();
+
+ajouter un coeur pour quand on clique dessus y'a la wishlist en forme de table
+
+
+public function addToWishlist($offerId)
+    {
+        $userId = Auth::id();
+        
+        // check if the offer is already in the user's wishlist
+        $wishlist = Wishlist::where('users_id', $userId)
+            ->where('offers_id', $offerId)
+            ->first();
+    
+        if ($wishlist) {
+            // if the offer is already in the wishlist, remove it
+            $wishlist->delete();
+            return back()->with('success', 'Offer removed from wishlist!');
+        } else {
+            // if the offer is not in the wishlist, add it
+            $wishlist = new Wishlist();
+            $wishlist->offers_id = $offerId;
+            $wishlist->users_id = $userId;
+            $wishlist->save();
+    
+            return back()->with('success', 'Offer added to wishlist successfully!');
+        }
+    }
+
+    public function removeFromWishlist(Request $request, $offerId)
+    {
+        $wishlist = Wishlist::where('users_id', Auth::id())
+            ->where('offers_id', $offerId)
+            ->delete();
+
+        return redirect('/offers');
+    }
+
+
+
+
+    @foreach ($offers as $offer)
+                <a href="{{ route('offers.show', $offer->id) }}">
+                    <div
+                        class="card  bg-SoftAccent hover:bg-gray-400 w-200 h-full transform hover:scale-105 duration-300 ease-in-out shadow-lg rounded-lg overflow-hidden">
+                        <div class="card-header bg-SoftAccent-light">
+                            <h3 class="font-bold text-2xl px-6 py-4">{{ $offer->title }}</h3>
+                        </div>
+                        <div class="card-body p-6">
+                            <p class="font-poppins italic text-lg text-black mb-6">{{ $offer->description }}</p>
+                            <div class="flex items-center">
+                                <img src="{{ asset('/img/companies/' . $offer->company->name . '.png') }}"
+                                    alt="{{ $offer->company->name }}" class="w-12 h-12 rounded-full mr-4">
+                                @if (Auth::check() && Auth::user()->role->title === 'admin')
+                                    <div class="flex">
+                                        <a href="/admin/offers/{{ $offer->id }}/edit"
+                                            class="block  text-white px-4 py-2 font-bold text-center items-center text-lg leading-5 hover:bg-red-400 focus:outline-none hover:text-black
+            bg-Accent transition hover:scale-105 duration-150 ease-in-out">
+                                            Editer
+                                        </a>
+                                        <form action="{{ route('offers.destroy', $offer->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="transform hover:scale-105 duration-300 ease-in-out shadow-lg  overflow-hidden bg-red-500 text-white p-2  w-full rounded-lg">
+                                                Supprimer l'offre
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('wishlist.addToWishlist', $offer->id) }}"
+                                            method="post">
+                                            @csrf
+                                            <button type="submit"
+                                                class="transform hover:scale-105 duration-300 ease-in-out shadow-lg overflow-hidden bg-blue-500 text-white p-2 w-full rounded-lg">
+                                                Ajouter aux favoris
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                @endif
+                                @if (Auth::check() && Auth::user()->role->title === 'student')
+                                    @php
+                                        $wishlist = \App\Models\Wishlist::where('users_id', Auth::id())
+                                            ->where('offers_id', $offer->id)
+                                            ->first();
+                                    @endphp
+                                    @if ($wishlist)
+                                        <form action="{{ route('wishlist.removeFromWishlist', $offer->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="transform hover:scale-105 duration-300 ease-in-out shadow-lg overflow-hidden bg-red-500 text-white p-2 w-full rounded-lg">
+                                                Remove from Wishlist
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('wishlist.addToWishlist', $offer->id) }}"
+                                            method="post">
+                                            @csrf
+                                            <button type="submit"
+                                                class="transform hover:scale-105 duration-300 ease-in-out shadow-lg overflow-hidden bg-blue-500 text-white p-2 w-full rounded-lg">
+                                                Add to Wishlist
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+
+            

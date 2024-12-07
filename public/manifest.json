@@ -1,0 +1,17 @@
+{
+    "name": "Internshop",
+    "short_name": "LPT",
+    "start_url": "/",
+    "background_color": "#9bd649",
+    "description": "Tutorial of Laravel Package",
+    "display": "fullscreen",
+    "theme_color": "#9bd649",
+    "icons": [
+        {
+            "src": "imgs/Logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

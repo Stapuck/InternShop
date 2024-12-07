@@ -1,0 +1,83 @@
+page de recherche
+aussi dans le home 
+
+a re voir 
+
+
+titre gestion nav bar pour l'admin 
+
+et bouton retour pour aller vers pageadmin ( admin only)
+
+
+bouton back 
+<a href="{{ url()->previous() }}" class="btn btn-default">Back</a>
+
+
+
+
+fonction auth // function pour le role 
+
+
+search 
+wishlist 
+
+dashboard *3
+
+Home, 
+revoir avis, mettre le blog et les liens voir plus 
+
+mise en page
+
+
+form pour login et register à revoir 
+
+et toutes les routes . 
+
+
+suppression avec cles etrangeres 
+
+
+
+
+
+sup company 
+sup offres lier à la c 
+sup les application lie au offres 
+sup localisation 
+
+
+
+etablissement
+sup promo
+sup student et pilote 
+sup localisation
+
+
+
+diappo 
+contexte 
+cahier des charges
+->diagramme utilisation
+-> mock-up  
+demo ( grosse partie) jeu de role 
+
+Bilan // supression cles etrangere mais pour ouvrir l'acces a la recherceh de stage pour tous enleve d'admin creation only (décentraliser les actions)
+conclu de projet 
+
+
+dashboard
+
+afficher les appplication des offres 
+
+statistic 
+count ( nombre d'offre d'une entreprise 
+nmbr de application sur une offre ....)
+
+
+<script>
+        if (!navigator.serviceWorker.controller) {
+            navigator.serviceWorker.register("/sw.js").then(function(reg) {
+                console.log("Service worker has been registered for scope: " + reg.scope);
+            });
+        }
+    </script>

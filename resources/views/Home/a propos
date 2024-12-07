@@ -1,0 +1,88 @@
+
+
+search nouveau
+controller
+
+function pour chaque 
+ça ca va dans le controller 
+
+public function search(Request $request)
+    {
+        $searcho = $_GET['search'];  nom de l'input 
+        $offers = Offer::where('title', 'like', '%' . $searcho . '%')->get();
+        return view('offers.search', ['offers' => $offers]);
+    }
+mettre dans un dossier le controller de offers
+et dupliquer pour le rest
+
+pour company
+public function search(Request $request)
+    {
+        $searchC = $_GET['search'];  nom de l'input 
+        $companies = Company::where('title', 'like', '%' . $searchC . '%')->get();
+        return view('Companies.search', ['companies' => $companies]);
+    }
+
+pour user
+public function search(Request $request)
+    {
+        $searchU = $_GET['search'];  nom de l'input 
+        $users = User::where('first_name', 'like', '%' . $searchU . '%')->get();
+        return view('Users.search', ['users' => $users]);
+    }
+
+
+    // regarder video pour le search 
+
+faire les dashboards 
+pour pilotes
+student
+entreprise
+admin 
+
+
+
+dash board entreprise 
+info de l'entreprise 
+et toutes les offres proposer par l'entreprise
+
+
+
+
+
+
+advancement 
+application gestion automatic des cles etrangere
+ company gerer la vue pour les offres et les localisations
+etablissements (eleves par établissements) 
+revoir creation
+offers
+liste deroulante qui reprned la base de donnée
+
+
+tailwind projet laravel 
+
+ @vite('resources/css/app.css')
+
+
+ pour le bouton postuler 
+ prendre id du mec authentifier 
+
+
+ pour le responsiv du header<div class="flex space-x-2 md:space-x-8">
+
+
+ pour candidater dans offer 
+ <div> test bouton postuler</div>
+
+        <form action="{{ route('Applications.create') }}" method="GET">
+            <button type="submit">Postuler</button>
+        </form>
+
+        rajouter sur toutes les offres
+
+        mettre un message disant 
+
+        pour pouvoir postuler veuillez vous connecter
+        ou mettre un if candidater href login 
+        
